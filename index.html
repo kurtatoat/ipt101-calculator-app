@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALCULATOR LOGIC WITH JAVASCRIPT</title>
+    <style>
+
+        #result{
+            width: 88%;
+            height: 50%;
+            padding: 20px;
+            margin: 3px;
+            background-color: aliceblue;
+            font-family: monospace;
+            border: 1px solid black;
+            font-size: 30px;
+        }
+
+        .num-btn{
+            width: 100px;
+            height: 90px;
+            padding: 20px;
+            background-color: #fff;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.1s ease;
+            border: 1px solid black;
+            font-size: 20px;
+        }
+
+        #equal{
+            width: 204px;
+            height: 190px;
+            padding: 20px;
+            background-color: white;
+            color: black;
+            border-radius: 5px;
+            transition: background-color 0.2s ease;
+            border: 1px solid black;
+            font-size: 20px;
+        }
+
+        .num-btn:hover {
+            background-color: white;
+            color: black;
+            font-style: italic;
+            border: 1px solid black;
+            
+        }
+
+        #equal:hover {
+            background-color: white;
+            color: black;
+            font-style: italic;
+            border: 1px solid black;
+            
+        }
+
+        body table{
+            width: 400px;
+            height: 500px;
+            margin: auto;
+            border: 10px;
+            padding: 5px;
+            background-color: white;
+            border: 1px solid black;
+        }
+
+        body h1{
+            text-align: center;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body h2{
+            text-align: center;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .container{
+            display: flex;
+            justify-content: center;
+        }
+
+        @media (max-width:600px){
+            table{
+                width: 200px;
+                height: 250px;
+            }
+            #result{
+                height: 50%;
+            }
+
+            .num-btn{
+                padding: 10px;
+            }
+
+            #equal{
+                padding: 10px;}
+        }
+    </style>
+</head>
+<body>
+    <h1> CALCULATOR APP </h1>
+    <table>
+        <tr>
+            <td colspan="4"><input type="text" id="result" disabled></td>
+            <td colspan="1"><input type="button" value="Del" onclick="backspace()" class="num-btn"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="7" onclick="appendnumber(7)" class="num-btn"></td>
+            <td><input type="button" value="8" onclick="appendnumber(8)" class="num-btn"></td>
+            <td><input type="button" value="9" onclick="appendnumber(9)" class="num-btn"></td>
+            <td><input type="button" value="/" onclick="div()" class="num-btn"></td>
+            <td><input type="button" value="x" onclick="multi()" class="num-btn"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="4" onclick="appendnumber(4)" class="num-btn"></td>
+            <td><input type="button" value="5" onclick="appendnumber(5)" class="num-btn"></td>
+            <td><input type="button" value="6" onclick="appendnumber(6)" class="num-btn"></td>
+            <td><input type="button" value="-" onclick="subt()" class="num-btn"></td>
+            <td><input type="button" value="+" onclick="add()" class="num-btn"></td>
+            
+        </tr>
+        <tr>
+            <td><input type="button" value="1" onclick="appendnumber(1)" class="num-btn"></td>
+            <td><input type="button" value="2" onclick="appendnumber(2)" class="num-btn"></td>
+            <td><input type="button" value="3" onclick="appendnumber(3)" class="num-btn"></td>
+            <td colspan="2" rowspan="2"><input type="button" value="=" onclick="calculate()" id ="equal"></td>
+            
+            
+        </tr>
+        <tr>
+            <td><input type="button" value="." onclick="appendnumber('.')" class ="num-btn"></td>
+            <td><input type="button" value="0" onclick="appendnumber(0)" class ="num-btn"></td>
+            <td><input type="button" value="C" onclick="clearInput()" class ="num-btn"></td>
+            
+            
+        </tr>
+    </table>
+
+    <h2>customize color?</h2>
+    <div class= "container">
+        <input type="color" id="buttonColor" name="buttonColor" value="#ffffff" style= "width: 100px; height: 40px; text-align: center;">
+    </div>
+
+    <script>
+        let currentInput = '';
+        let currentOperator = '';
+
+        function appendnumber(number){
+           currentInput = currentInput += number;
+           document.getElementById('result').value = currentInput;
+
+        }
+
+        function add(){
+            currentOperator = "+";
+            currentInput += currentOperator;
+            document.getElementById('result').value = currentInput;
+        }
+
+        function subt(){
+            currentOperator = "-";
+            currentInput += currentOperator;
+            document.getElementById('result').value = currentInput;
+        }
+ 
+        function multi(){
+            currentOperator = "*";
+            currentInput += currentOperator;
+            document.getElementById('result').value = currentInput;
+        }
+
+        function div(){
+            currentOperator = "/";
+            currentInput += currentOperator;
+            document.getElementById('result').value = currentInput;
+        }
+
+        function clearInput(){
+            currentInput = '';
+            currentOperator = '';
+            document.getElementById('result').value = '';
+        }
+
+        function backspace(){
+            currentInput = document.getElementById('result');
+            let newInput = currentInput.value.slice(0, -1);
+            currentInput = newInput
+            document.getElementById('result').value = currentInput;
+        }
+        
+        function calculate(){
+            const result = eval(currentInput);
+            document.getElementById('result').value = result
+            currentInput = result.toString()
+            currentOperator = '';
+        }
+
+        const buttons = document.querySelectorAll('.num-btn',);
+        const buttonColorPicker = document.getElementById('buttonColor')
+
+        buttons.forEach(button => {
+            button.style.backgroundColor = buttonColorPicker.value;
+        });
+
+        buttonColorPicker.addEventListener('input', function(){
+            buttons.forEach(button => {
+                button.style.backgroundColor = this.value;
+            });
+        });
+
+        const equalbtn = document.getElementById('equal');
+        equalbtn.style.backgroundColor = buttonColorPicker.value;
+        buttonColorPicker.addEventListener(
+            'input', function() {
+                equalbtn.style.backgroundColor = this.value;
+            }
+        );
+    </script>
+</body>
+</html>
